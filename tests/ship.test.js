@@ -19,7 +19,7 @@ describe('Ship factory function', () => {
 
     it('health array is not mutated if given position does not exist', () => {
       ship = createShip('Destroyer');
-      let position = 3;
+      let position = 4;
       try {
         ship.hit(position);
       } catch (e) {};
@@ -51,10 +51,6 @@ describe('Ship factory function', () => {
     it('returns the health array of a Patrol Boat', () => {
       ship = createShip('Patrol Boat');
       expect(ship.getHealth()).toEqual([1, 1]);
-    })
-
-    it('does not mutate the private health array', () => {
-      
     })
   })
 })

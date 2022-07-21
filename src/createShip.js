@@ -1,30 +1,16 @@
 function createShip(name) {
-  let health
-
-  switch (name) {
-    case 'Carrier':
-      health = [1, 1, 1, 1, 1]
-      break;
-    case 'Battleship':
-      health = [1, 1, 1, 1]
-      break;
-    case 'Destroyer':
-      health = [1, 1, 1]
-      break;
-    case 'Submarine':
-      health = [1, 1, 1]
-      break;
-    case 'Patrol Boat':
-      health = [1, 1]
-      break;
-    default:
-      throw new Error('Invalid ship name')
+  let mapping = {
+    "Carrier": 5,
+    "Battleship": 4,
+    "Destroyer": 3,
+    "Submarine": 3,
+    "Patrol Boat": 2,
   }
+  let length = mapping[name];
+  let health = Array(length).fill(1);
 
   return {
     getHealth: () => health,
-    
-    
     hit(position) {
       if (position >= 0 && position < health.length) {
         health[position] = 0
