@@ -62,11 +62,10 @@ describe('Ship factory function', () => {
       expect(ship.isSunk()).toBe(true);
     })
 
-    // it('returns false if all health is not 0', () => {
-    //   ship = createShip('Patrol Boat');
-    //   ship.hit(6);
-    //   ship.hit(0);
-    //   expect(ship.isSunk()).toBe(false);
-    // })
+    it('returns false if all health is not 0', () => {
+      ship = createShip('Patrol Boat');
+      ship.hit(0);
+      expect(ship.isSunk()).toBe(false);
+    })
   });
 })
