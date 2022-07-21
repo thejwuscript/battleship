@@ -1,4 +1,4 @@
-function createShip(name) {
+function Ship(name) {
   let mapping = {
     "Carrier": 5,
     "Battleship": 4,
@@ -22,4 +22,4 @@ function createShip(name) {
   }
 };
 
-export default createShip;
+export default Ship;
