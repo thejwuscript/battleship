@@ -18,6 +18,7 @@ function createShip(name) {
         throw new Error('Invalid position')
       }
     },
+    isSunk: () => health.every(n => n === 0)
   }
 };
 

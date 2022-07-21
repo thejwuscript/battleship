@@ -52,5 +52,21 @@ describe('Ship factory function', () => {
       ship = createShip('Patrol Boat');
       expect(ship.getHealth()).toEqual([1, 1]);
     })
-  })
+  });
+
+  describe('isSunk', () => {
+    it('returns true if all health is 0', () => {
+      ship = createShip('Patrol Boat');
+      ship.hit(0);
+      ship.hit(1);
+      expect(ship.isSunk()).toBe(true);
+    })
+
+    // it('returns false if all health is not 0', () => {
+    //   ship = createShip('Patrol Boat');
+    //   ship.hit(6);
+    //   ship.hit(0);
+    //   expect(ship.isSunk()).toBe(false);
+    // })
+  });
 })
