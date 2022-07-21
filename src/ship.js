@@ -10,6 +10,8 @@ function Ship(name) {
   let health = Array(length).fill(1);
 
   return {
+    getName: () => name,
+    getLength: () => length,
     getHealth: () => health,
     hit(position) {
       if (position >= 0 && position < health.length) {
