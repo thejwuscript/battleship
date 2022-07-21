@@ -23,21 +23,16 @@ describe('GameBoard factory', () => {
   });
 
   describe('placeShip', () => {
-    it('places a ship on the game board', () => {
-      // mock a ship
+    it('places a Battleship on the game board horizontally at a location', () => {
       const ship = jest.fn((name) => {
         return {
           getName: () => name,
           getLength: () => 4,
         }
       });
-      // specify a location on the grid
       const location = 'B5';
-      // specify the orientation whether it is horizontal or vertical
       const orientation = 'horizontal';
-      // call placeShip
       gameBoard.placeShip(ship('Battleship'), location, orientation);
-      // check if the ship is placed on the grid
       expect(gameBoard.getGrid()).toEqual([
         [null, null, null, null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null, null, null, null],
@@ -51,5 +46,30 @@ describe('GameBoard factory', () => {
         [null, null, null, null, null, null, null, null, null, null]
       ]);
     });
+
+    it('places a Battleship on the game board vertically at a location', () => {
+      const ship = jest.fn((name) => {
+        return {
+          getName: () => name,
+          getLength: () => 4,
+        }
+      })
+      const location = 'C2';
+      const orientation = 'vertical';
+      gameBoard.placeShip(ship('Battleship'), location, orientation);
+      expect(gameBoard.getGrid()).toEqual([
+        [null, null, null, null, null, null, null, null, null, null],
+        [null, null, 'Battleship0', null, null, null, null, null, null, null],
+        [null, null, 'Battleship1', null, null, null, null, null, null, null],
+        [null, null, 'Battleship2', null, null, null, null, null, null, null],
+        [null, null, 'Battleship3', null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null, null, null],
+      ])
+      
+    })
   })
 });
