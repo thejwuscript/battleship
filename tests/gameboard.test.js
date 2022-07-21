@@ -25,9 +25,9 @@ describe('GameBoard factory', () => {
   describe('placeShip', () => {
     it('places a ship on the game board', () => {
       // mock a ship
-      const ship = jest.fn(() => {
+      const ship = jest.fn((name) => {
         return {
-          getName: () => 'Battleship',
+          getName: () => name,
           getLength: () => 4,
         }
       });
@@ -36,7 +36,7 @@ describe('GameBoard factory', () => {
       // specify the orientation whether it is horizontal or vertical
       const orientation = 'horizontal';
       // call placeShip
-      gameBoard.placeShip(ship(), location, orientation);
+      gameBoard.placeShip(ship('Battleship'), location, orientation);
       // check if the ship is placed on the grid
       expect(gameBoard.getGrid()).toEqual([
         [null, null, null, null, null, null, null, null, null, null],
