@@ -15,9 +15,13 @@ function AIPlayer(gameBoard) {
   const chooseLocation = function () {
     shuffleLocations();
     const chosen = locations.pop();
-    attackedLocations.push(chosen);
+    storeAttackedLocation(chosen)
     return chosen;
   };
+
+  const storeAttackedLocation = (location) => {
+    attackedLocations.push(location);
+  }
 
   const shuffleLocations = () => {
     locations.sort(() => Math.random() - 0.5);
