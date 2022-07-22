@@ -13,13 +13,9 @@ function GameBoard() {
     "Patrol Boat": Ship('Patrol Boat'),
   }
 
-  const getGrid = function() {
-    return this.grid;
-  }
+  const getGrid = () => grid;
 
-  const getMissedShots = function() {
-    return missedShots;
-  }
+  const getMissedShots = () => missedShots;
 
   const getShips = () => ships;
 
@@ -37,6 +33,7 @@ function GameBoard() {
       }
     }
   }
+
   const receiveAttack = function(location) {
     const [rowIndex, colIndex] = location;
     if (this.getGrid()[rowIndex][colIndex] === null) {
@@ -45,12 +42,11 @@ function GameBoard() {
       let shipString = this.getGrid()[rowIndex][colIndex];
       let shipName = shipString.split(/(\d+)/)[0];
       let shipIndex = parseInt(shipString.split(/(\d+)/)[1]);
-      let ship = ships[shipName];
-      ship.hit(shipIndex);
+      ships[shipName].hit(shipIndex);
     };
   };
 
-  return { grid, getGrid, ships, getShips, getMissedShots, placeShip, receiveAttack }
+  return { getGrid, getShips, getMissedShots, placeShip, receiveAttack }
 }
 
 export default GameBoard;

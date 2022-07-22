@@ -97,9 +97,8 @@ describe('GameBoard factory', () => {
 
     describe('when the location is a ship', () => {
       it('sends a hit message to the ship with an index of the hit location', () => {
-        let testBoard = GameBoard();
-        let ship = testBoard.ships.Destroyer;
-        testBoard.grid = [
+        let ship = gameBoard.getShips().Destroyer;
+        gameBoard.getGrid = jest.fn().mockReturnValue([
           [null, null, null, null, null, null, null, null, null, null],
           [null, null, null, null, null, null, null, null, null, null],
           [null, null, null, null, null, null, null, null, null, null],
@@ -110,11 +109,11 @@ describe('GameBoard factory', () => {
           [null, null, null, null, null, null, null, null, null, null],
           [null, null, null, null, null, null, null, null, null, null],
           [null, null, null, null, null, null, null, null, null, null]
-        ]
+        ]);
         const location = [3, 5];
         let spy = jest.spyOn(ship, 'hit');
-        testBoard.receiveAttack(location);
-        expect(spy).toHaveBeenCalled();
+        gameBoard.receiveAttack(location);
+        expect(spy).toHaveBeenCalledWith(1);
       })
     })
   })
