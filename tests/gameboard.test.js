@@ -89,9 +89,11 @@ describe('GameBoard factory', () => {
           [null, null, null, null, null, null, null, null, null, null],
           [null, null, null, null, null, null, null, null, null, null]
         ]);
-        const location = [6, 3];
-        gameBoard.receiveAttack(location);
-        expect(gameBoard.getMissedShots()).toContain(location);
+        const locationOne = [6, 3];
+        const locationTwo = [2, 2];
+        gameBoard.receiveAttack(locationOne);
+        gameBoard.receiveAttack(locationTwo);
+        expect(gameBoard.getMissedShots()).toEqual([locationOne, locationTwo]);
       })
     })
 
