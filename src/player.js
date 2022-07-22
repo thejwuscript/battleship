@@ -1,6 +1,6 @@
-function Player() {
+function Player(gameBoard) {
   return {
-    attack(gameBoard, location) {
+    attack(location) {
       gameBoard.receiveAttack(location);
     }
   }

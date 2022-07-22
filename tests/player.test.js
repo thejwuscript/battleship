@@ -3,17 +3,18 @@ import GameBoard from '../src/gameBoard';
 
 describe('Player factory', () => {
   let player
+  let gameBoard
 
   beforeEach(() => {
-    player = Player();
+    gameBoard = GameBoard();
+    player = Player(gameBoard);
   });
 
   describe('attack', () => {
     it('attacks a location on the game board', () => {
-      const gameBoard = GameBoard();
       const location = [1, 3];
       const spy = jest.spyOn(gameBoard, 'receiveAttack');
-      player.attack(gameBoard, location);
+      player.attack(location);
       expect(spy).toHaveBeenCalledWith(location);
     })
   })
