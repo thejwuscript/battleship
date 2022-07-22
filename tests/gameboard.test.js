@@ -123,10 +123,26 @@ describe('GameBoard factory', () => {
   describe('allShipsSunk', () => {
     it('returns true if all ships are sunk', () => {
       const ships = gameBoard.getShips();
-      for (let ship in ships) {
-        ships[ship].isSunk = jest.fn().mockReturnValue(true);
-      }
+
+      ships.Carrier.isSunk = jest.fn().mockReturnValue(true);
+      ships.Battleship.isSunk = jest.fn().mockReturnValue(true);
+      ships.Submarine.isSunk = jest.fn().mockReturnValue(true);
+      ships.Destroyer.isSunk = jest.fn().mockReturnValue(true);
+      ships["Patrol Boat"].isSunk = jest.fn().mockReturnValue(true);
+
       expect(gameBoard.allShipsSunk()).toBe(true);
+    })
+
+    it('returns false if one or more ships are not sunk', () => {
+      const ships = gameBoard.getShips();
+
+      ships.Carrier.isSunk = jest.fn().mockReturnValue(true);
+      ships.Battleship.isSunk = jest.fn().mockReturnValue(false);
+      ships.Submarine.isSunk = jest.fn().mockReturnValue(true);
+      ships.Destroyer.isSunk = jest.fn().mockReturnValue(true);
+      ships["Patrol Boat"].isSunk = jest.fn().mockReturnValue(true);
+
+      expect(gameBoard.allShipsSunk()).toBe(false);
     })
   })
 });
