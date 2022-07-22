@@ -119,4 +119,14 @@ describe('GameBoard factory', () => {
       })
     })
   })
+
+  describe('allShipsSunk', () => {
+    it('returns true if all ships are sunk', () => {
+      const ships = gameBoard.getShips();
+      for (let ship in ships) {
+        ships[ship].isSunk = jest.fn().mockReturnValue(true);
+      }
+      expect(gameBoard.allShipsSunk()).toBe(true);
+    })
+  })
 });

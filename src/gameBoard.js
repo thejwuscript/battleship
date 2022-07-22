@@ -46,7 +46,18 @@ function GameBoard() {
     };
   };
 
-  return { getGrid, getShips, getMissedShots, placeShip, receiveAttack }
+  const allShipsSunk = () => {
+    for (let ship in ships) {
+      if (ships[ship].isSunk() === false) {
+        return false;
+      } else {
+        continue;
+      };
+    };
+    return true;
+  };
+
+  return { getGrid, getShips, getMissedShots, placeShip, receiveAttack, allShipsSunk }
 }
 
 export default GameBoard;
