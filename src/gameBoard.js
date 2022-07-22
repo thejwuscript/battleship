@@ -37,6 +37,7 @@ function GameBoard() {
   const receiveAttack = function(location) {
     const [rowIndex, colIndex] = location;
     if (this.getGrid()[rowIndex][colIndex] === null) {
+      console.log("Miss!");
       this.getMissedShots().push(location);
     } else if (typeof this.getGrid()[rowIndex][colIndex] === 'string') {
       let shipString = this.getGrid()[rowIndex][colIndex];

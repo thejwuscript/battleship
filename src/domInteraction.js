@@ -1,4 +1,5 @@
 const domInteraction = (() => {
+  
   const displayGrid = (grid, container) => {
     grid.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
@@ -15,7 +16,22 @@ const domInteraction = (() => {
     });
   };
 
-  return { displayGrid }
+  const addListeners = (player, container) => {
+    container.childNodes.forEach((coordinateDiv) => {
+      coordinateDiv.addEventListener('click', () => {
+        const location = coordinateDiv.dataset.location.split(',');
+        player.attack(location);
+      }, {once: true});
+    });
+  };
+
+  const disableClicks = (container) => {
+    container.childNodes.forEach((coordinateDiv) => {
+      coordinateDiv.style.pointerEvents = 'none';
+    });
+  }
+
+  return { displayGrid, addListeners, disableClicks };
 })();
 
 export default domInteraction;

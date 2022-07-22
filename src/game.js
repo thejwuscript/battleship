@@ -6,8 +6,9 @@ import domInteraction from "./domInteraction";
 const Game = (() => {
   const humanBoard = GameBoard();
   const aiBoard = GameBoard();
-  const humanPlayer = Player(humanBoard);
-  const aiPlayer = AIPlayer(aiBoard);
+  const humanPlayer = Player(aiBoard);
+  const aiPlayer = AIPlayer(humanBoard);
+  let currentPlayer = humanPlayer;
 
   const play = () => {
     setup();
@@ -26,6 +27,8 @@ const Game = (() => {
     const aiGridDiv = document.querySelector(".ai-grid");
     domInteraction.displayGrid(humanBoard.getGrid(), humanGridDiv);
     domInteraction.displayGrid(aiBoard.getGrid(), aiGridDiv);
+
+    domInteraction.addListeners(humanPlayer, aiGridDiv);
   };
 
   return { play };

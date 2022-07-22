@@ -15,6 +15,7 @@ function Ship(name) {
     getHealth: () => health,
     hit(position) {
       if (position >= 0 && position < health.length) {
+        console.log("It's a hit!");
         health[position] = 0
       } else {
         throw new Error('Invalid position')
