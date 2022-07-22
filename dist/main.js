@@ -16,7 +16,7 @@
   \*************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, \"body {\\n  display: flex;\\n  align-items: center;\\n  flex-direction: column;\\n}\\n\\n.boards-container {\\n  display: flex;\\n  justify-content: space-around;\\n  width: 100vw;\\n  height: 70vh;\\n}\\n\\n.boards-container div {\\n  width: 500px;\\n  height: 500px;\\n  display: grid;\\n  grid-template-columns: repeat(10, 1fr);\\n  grid-template-rows: repeat(10, 1fr);\\n}\", \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://battleship/./src/style.css?./node_modules/css-loader/dist/cjs.js");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, \"body {\\n  display: flex;\\n  align-items: center;\\n  flex-direction: column;\\n}\\n\\n.boards-container {\\n  display: flex;\\n  justify-content: space-around;\\n  width: 100vw;\\n  height: 70vh;\\n}\\n\\n.boards-container > div {\\n  width: 500px;\\n  height: 500px;\\n  display: grid;\\n  grid-template-columns: repeat(10, 1fr);\\n  grid-template-rows: repeat(10, 1fr);\\n  border: 1px solid black;\\n}\\n\\n.coordinate {\\n  border: 1px solid black;\\n}\\n\\n.coordinate.occupied {\\n  background-color: #5e5959;\\n}\", \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://battleship/./src/style.css?./node_modules/css-loader/dist/cjs.js");
 
 /***/ }),
 
@@ -110,13 +110,73 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 
 /***/ }),
 
+/***/ "./src/aiPlayer.js":
+/*!*************************!*\
+  !*** ./src/aiPlayer.js ***!
+  \*************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nfunction AIPlayer(gameBoard) {\n  const locations = gameBoard\n    .getGrid()\n    .map((row, rowIndex) => {\n      return row.map((cell, columnIndex) => {\n        return [rowIndex, columnIndex];\n      });\n    })\n    .flat();\n\n  const attackedLocations = [];\n\n  const getLocations = () => locations;\n\n  const chooseLocation = function () {\n    shuffleLocations();\n    const chosen = locations.pop();\n    storeAttackedLocation(chosen)\n    return chosen;\n  };\n\n  const storeAttackedLocation = (location) => {\n    attackedLocations.push(location);\n  }\n\n  const shuffleLocations = () => {\n    locations.sort(() => Math.random() - 0.5);\n  };\n\n  const attack = () => {\n    const chosenLocation = chooseLocation();\n    gameBoard.receiveAttack(chosenLocation);\n  }\n\n  return { chooseLocation, getLocations, attack };\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AIPlayer);\n\n\n//# sourceURL=webpack://battleship/./src/aiPlayer.js?");
+
+/***/ }),
+
+/***/ "./src/domInteraction.js":
+/*!*******************************!*\
+  !*** ./src/domInteraction.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst domInteraction = (() => {\n  const displayGrid = (grid, container) => {\n    const flattenedGrid = grid.flat();\n    flattenedGrid.forEach(cell => {\n      const coordinateDiv = document.createElement('div');\n      coordinateDiv.classList.add('coordinate');\n      if (cell === null) {\n        coordinateDiv.classList.add('empty');\n      } else {\n        coordinateDiv.classList.add('occupied');\n      }\n      container.appendChild(coordinateDiv);\n    })\n  }\n  // select the div element with the class of \"human-board\"\n  // select the div element with the class of \"ai-board\"\n  // get the game board grid from each player and store them in a variable separately\n  // flatten the multidimensional array into a single array with 100 elements and store that into a variable\n  // element will be either null or a string\n  // iterate through the array\n  // for each element, create a new div element\n  // add the class \"coordinate\" to the div element\n  // if the element is null, add a class of 'empty' to the div\n  // if the element is a string, add a class of 'occupied' to the div\n  // append the div element to each respective player's div\n\n  return { displayGrid }\n})();\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (domInteraction);\n\n//# sourceURL=webpack://battleship/./src/domInteraction.js?");
+
+/***/ }),
+
+/***/ "./src/game.js":
+/*!*********************!*\
+  !*** ./src/game.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _src_aiPlayer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../src/aiPlayer */ \"./src/aiPlayer.js\");\n/* harmony import */ var _src_gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../src/gameBoard */ \"./src/gameBoard.js\");\n/* harmony import */ var _src_player__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../src/player */ \"./src/player.js\");\n/* harmony import */ var _domInteraction__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./domInteraction */ \"./src/domInteraction.js\");\n\n\n\n\n\nconst Game = (() => {\n  const humanBoard = (0,_src_gameBoard__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n  const aiBoard = (0,_src_gameBoard__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n  const humanPlayer = (0,_src_player__WEBPACK_IMPORTED_MODULE_2__[\"default\"])(humanBoard);\n  const aiPlayer = (0,_src_aiPlayer__WEBPACK_IMPORTED_MODULE_0__[\"default\"])(aiBoard);\n\n  const play = () => {\n    setup();\n  };\n\n  const setup = () => {\n    Object.values(humanBoard.getShips()).forEach((ship, index) => {\n      humanBoard.placeShip(ship, [index, index], \"horizontal\");\n    });\n\n    Object.values(aiBoard.getShips()).forEach((ship, index) => {\n      aiBoard.placeShip(ship, [index, index], \"vertical\");\n    });\n\n    const humanGridDiv = document.querySelector(\".human-grid\");\n    const aiGridDiv = document.querySelector(\".ai-grid\");\n    _domInteraction__WEBPACK_IMPORTED_MODULE_3__[\"default\"].displayGrid(humanBoard.getGrid(), humanGridDiv);\n    _domInteraction__WEBPACK_IMPORTED_MODULE_3__[\"default\"].displayGrid(aiBoard.getGrid(), aiGridDiv);\n  };\n\n  return { play };\n})();\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Game);\n\n\n//# sourceURL=webpack://battleship/./src/game.js?");
+
+/***/ }),
+
+/***/ "./src/gameBoard.js":
+/*!**************************!*\
+  !*** ./src/gameBoard.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _ship__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ship */ \"./src/ship.js\");\n\n\nfunction GameBoard() {\n  const grid = new Array(10).fill(null).map(() => new Array(10).fill(null));\n\n  const missedShots = [];\n\n  const ships = {\n    Carrier: (0,_ship__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('Carrier'),\n    Battleship: (0,_ship__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('Battleship'),\n    Submarine: (0,_ship__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('Submarine'),\n    Destroyer: (0,_ship__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('Destroyer'),\n    \"Patrol Boat\": (0,_ship__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('Patrol Boat'),\n  }\n\n  const getGrid = () => grid;\n\n  const getMissedShots = () => missedShots;\n\n  const getShips = () => ships;\n\n  const placeShip = (ship, location, orientation) => {\n    //location is an array [row, column]\n    let [rowIndex, colIndex] = location;\n    const length = ship.getLength();\n    if (orientation === 'horizontal') {\n      for (let i = 0; i < length; i++) {\n        grid[rowIndex][colIndex + i] = ship.getName() + i;\n      }\n    } else {\n      for (let i = 0; i < length; i++) {\n        grid[rowIndex + i][colIndex] = ship.getName() + i;\n      }\n    }\n  }\n\n  const receiveAttack = function(location) {\n    const [rowIndex, colIndex] = location;\n    if (this.getGrid()[rowIndex][colIndex] === null) {\n      this.getMissedShots().push(location);\n    } else if (typeof this.getGrid()[rowIndex][colIndex] === 'string') {\n      let shipString = this.getGrid()[rowIndex][colIndex];\n      let shipName = shipString.split(/(\\d+)/)[0];\n      let shipIndex = parseInt(shipString.split(/(\\d+)/)[1]);\n      ships[shipName].hit(shipIndex);\n    };\n  };\n\n  const allShipsSunk = () => {\n    for (let ship in ships) {\n      if (ships[ship].isSunk() === false) {\n        return false;\n      } else {\n        continue;\n      };\n    };\n    return true;\n  };\n\n  return { getGrid, getShips, getMissedShots, placeShip, receiveAttack, allShipsSunk }\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GameBoard);\n\n//# sourceURL=webpack://battleship/./src/gameBoard.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\n//# sourceURL=webpack://battleship/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game */ \"./src/game.js\");\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\n\n_game__WEBPACK_IMPORTED_MODULE_0__[\"default\"].play();\n\n\n\n//# sourceURL=webpack://battleship/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/player.js":
+/*!***********************!*\
+  !*** ./src/player.js ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nfunction Player(gameBoard) {\n  return {\n    attack(location) {\n      gameBoard.receiveAttack(location);\n    }\n  }\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Player);\n\n//# sourceURL=webpack://battleship/./src/player.js?");
+
+/***/ }),
+
+/***/ "./src/ship.js":
+/*!*********************!*\
+  !*** ./src/ship.js ***!
+  \*********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nfunction Ship(name) {\n  let mapping = {\n    \"Carrier\": 5,\n    \"Battleship\": 4,\n    \"Destroyer\": 3,\n    \"Submarine\": 3,\n    \"Patrol Boat\": 2,\n  }\n  let length = mapping[name];\n  let health = Array(length).fill(1);\n\n  return {\n    getName: () => name,\n    getLength: () => length,\n    getHealth: () => health,\n    hit(position) {\n      if (position >= 0 && position < health.length) {\n        health[position] = 0\n      } else {\n        throw new Error('Invalid position')\n      }\n    },\n    isSunk: () => health.every(n => n === 0)\n  }\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Ship);\n\n//# sourceURL=webpack://battleship/./src/ship.js?");
 
 /***/ })
 

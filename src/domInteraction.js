@@ -1,4 +1,17 @@
 const domInteraction = (() => {
+  const displayGrid = (grid, container) => {
+    const flattenedGrid = grid.flat();
+    flattenedGrid.forEach(cell => {
+      const coordinateDiv = document.createElement('div');
+      coordinateDiv.classList.add('coordinate');
+      if (cell === null) {
+        coordinateDiv.classList.add('empty');
+      } else {
+        coordinateDiv.classList.add('occupied');
+      }
+      container.appendChild(coordinateDiv);
+    })
+  }
   // select the div element with the class of "human-board"
   // select the div element with the class of "ai-board"
   // get the game board grid from each player and store them in a variable separately
@@ -11,5 +24,7 @@ const domInteraction = (() => {
   // if the element is a string, add a class of 'occupied' to the div
   // append the div element to each respective player's div
 
-  return {}
+  return { displayGrid }
 })();
+
+export default domInteraction;

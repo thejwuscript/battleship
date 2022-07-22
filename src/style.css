@@ -11,10 +11,19 @@ body {
   height: 70vh;
 }
 
-.boards-container div {
+.boards-container > div {
   width: 500px;
   height: 500px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
+  border: 1px solid black;
+}
+
+.coordinate {
+  border: 1px solid black;
+}
+
+.coordinate.occupied {
+  background-color: #5e5959;
 }
