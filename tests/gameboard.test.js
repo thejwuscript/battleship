@@ -1,4 +1,5 @@
 import GameBoard from '../src/gameBoard'
+import Ship from '../src/ship'
 
 describe('GameBoard factory', () => {
   let gameBoard;
@@ -30,7 +31,7 @@ describe('GameBoard factory', () => {
           getLength: () => 4,
         }
       });
-      const location = 'B5';
+      const location = [4, 1];
       const orientation = 'horizontal';
       gameBoard.placeShip(ship('Battleship'), location, orientation);
       expect(gameBoard.getGrid()).toEqual([
@@ -54,7 +55,7 @@ describe('GameBoard factory', () => {
           getLength: () => 4,
         }
       })
-      const location = 'C2';
+      const location = [1, 2];
       const orientation = 'vertical';
       gameBoard.placeShip(ship('Battleship'), location, orientation);
       expect(gameBoard.getGrid()).toEqual([
@@ -69,7 +70,52 @@ describe('GameBoard factory', () => {
         [null, null, null, null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null, null, null, null],
       ])
-      
+
+    })
+  })
+
+  describe('receiveAttack', () => {
+    describe('when the location is empty', () => {
+      it('records the location of the missed shot', () => {
+        gameBoard.getGrid = jest.fn().mockReturnValue([
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, 'Destroyer0', 'Destroyer1', 'Destroyer2', null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null]
+        ]);
+        const location = [6, 3];
+        gameBoard.receiveAttack(location);
+        expect(gameBoard.getMissedShots()).toContain(location);
+      })
+    })
+
+    describe('when the location is a ship', () => {
+      it('sends a hit message to the ship with an index of the hit location', () => {
+        let testBoard = GameBoard();
+        let ship = testBoard.ships.Destroyer;
+        testBoard.grid = [
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, 'Destroyer0', 'Destroyer1', 'Destroyer2', null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null],
+          [null, null, null, null, null, null, null, null, null, null]
+        ]
+        const location = [3, 5];
+        let spy = jest.spyOn(ship, 'hit');
+        testBoard.receiveAttack(location);
+        expect(spy).toHaveBeenCalled();
+      })
     })
   })
 });
