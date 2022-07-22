@@ -3,18 +3,20 @@ import GameBoard from '../src/gameBoard';
 
 describe('AI Player', () => {
   let aiPlayer;
+  let gameBoard;
 
-  beforeEach(() => aiPlayer = AIPlayer(GameBoard()));
+  beforeEach(() => {
+    gameBoard = GameBoard();
+    aiPlayer = AIPlayer(gameBoard);
+  })
 
   describe('attack', () => {
-    it('attacks a random location on the game board if it is valid', () => {
-
+    it('attacks a randomly chosen location on the game board', () => {
+      const spy = jest.spyOn(gameBoard, 'receiveAttack');
+      aiPlayer.attack();
+      expect(spy).toBeCalled();
     });
-
-    it('does not attack a location that has already been attacked', () => {
-
-    });
-  })
+  });
 
   describe('chooseLocation', () => {
     const locations = [
