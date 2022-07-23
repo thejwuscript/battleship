@@ -10,7 +10,9 @@ const Game = (() => {
   const aiPlayer = AIPlayer(humanBoard);
   let currentPlayer = humanPlayer;
 
-  const gameOver = () => { humanBoard.allShipsSunk() || aiBoard.allShipsSunk() }
+  const gameOver = () => {
+    return (humanBoard.allShipsSunk() || aiBoard.allShipsSunk())
+  }
 
   const play = () => {
     Object.values(humanBoard.getShips()).forEach((ship, index) => {
@@ -37,7 +39,7 @@ const Game = (() => {
           coordinateDiv.classList.add("occupied", "attacked");
         }
         if (gameOver()) {
-          alert("You win!");
+          setTimeout(() => alert("You win!"), 0);
         } else {
           aiPlayer.attack();
           const aiLocation = aiPlayer.getLastAttackedLocation()
@@ -46,7 +48,7 @@ const Game = (() => {
             alert("You lose!");
           }
         }
-      })
+      }, {once: true})
     })
 
     //domInteraction.addListeners(humanPlayer, aiGridDiv);
