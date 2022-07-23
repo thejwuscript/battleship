@@ -1,5 +1,5 @@
 const DomHandler = (() => {
-  const displayGrid = (grid, container) => {
+  const render = (grid, container) => {
     grid.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
         const coordinateDiv = document.createElement("div");
@@ -15,7 +15,13 @@ const DomHandler = (() => {
     });
   };
 
-  return { displayGrid };
+  const addGameLoopListeners = (container, callback) => {
+    container.childNodes.forEach((coordinateDiv) => {
+      coordinateDiv.addEventListener("click", callback, { once: true });
+    });
+  }
+
+  return { render, addGameLoopListeners };
 })();
 
 export default DomHandler;
