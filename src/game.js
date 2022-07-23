@@ -10,11 +10,9 @@ const Game = (() => {
   const aiPlayer = AIPlayer(humanBoard);
   let currentPlayer = humanPlayer;
 
-  const play = () => {
-    setup();
-  };
+  const gameOver = () => { humanBoard.allShipsSunk() || aiBoard.allShipsSunk() }
 
-  const setup = () => {
+  const play = () => {
     Object.values(humanBoard.getShips()).forEach((ship, index) => {
       humanBoard.placeShip(ship, [index, index], "horizontal");
     });
@@ -25,13 +23,21 @@ const Game = (() => {
 
     const humanGridDiv = document.querySelector(".human-grid");
     const aiGridDiv = document.querySelector(".ai-grid");
+   
     domInteraction.displayGrid(humanBoard.getGrid(), humanGridDiv);
     domInteraction.displayGrid(aiBoard.getGrid(), aiGridDiv);
 
-    domInteraction.addListeners(humanPlayer, aiGridDiv);
+    //domInteraction.addListeners(humanPlayer, aiGridDiv);
     domInteraction.aiMove(aiPlayer, aiGridDiv);
     domInteraction.hitOrMiss(aiBoard, aiGridDiv);
+    // aiGridDiv.childNodes.forEach(cellDiv => {
+    //   cellDiv.addEventListener('click', () => {
+    //     gameOver();
+    //   }, { once: true });
+    // });
   };
+
+ 
 
   return { play };
 })();
