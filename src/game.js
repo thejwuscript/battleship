@@ -30,6 +30,7 @@ const Game = (() => {
 
     domInteraction.addListeners(humanPlayer, aiGridDiv);
     domInteraction.aiMove(aiPlayer, aiGridDiv);
+    domInteraction.hitOrMiss(aiBoard, aiGridDiv);
   };
 
   return { play };

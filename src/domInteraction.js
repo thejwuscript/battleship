@@ -5,9 +5,9 @@ const domInteraction = (() => {
         const coordinateDiv = document.createElement("div");
         coordinateDiv.classList.add("coordinate");
         coordinateDiv.dataset.location = `${rowIndex},${colIndex}`;
-        if (cell === null) {
+        if (cell === null && container.classList.contains("human-grid")) {
           coordinateDiv.classList.add("empty");
-        } else {
+        } else if (typeof cell === "string" && container.classList.contains("human-grid")) {
           coordinateDiv.classList.add("occupied");
         }
         container.appendChild(coordinateDiv);
@@ -55,7 +55,21 @@ const domInteraction = (() => {
     });
   };
 
-  return { displayGrid, addListeners, disableClicks, aiMove };
+  const hitOrMiss = (gameBoard, container) => {
+    const grid = gameBoard.getGrid();
+    container.childNodes.forEach((coordinateDiv) => {
+      coordinateDiv.addEventListener('click', (e) => {
+        const location = coordinateDiv.dataset.location.split(",");
+        if (grid[location[0]][location[1]] === null) {
+          coordinateDiv.classList.add("empty", "attacked");
+        } else if (typeof grid[location[0]][location[1]] === "string") {
+          coordinateDiv.classList.add("occupied", "attacked");
+        };
+      });
+    });
+  }
+
+  return { displayGrid, addListeners, disableClicks, aiMove, hitOrMiss };
 })();
 
 export default domInteraction;
