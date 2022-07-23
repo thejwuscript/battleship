@@ -29,6 +29,7 @@ const Game = (() => {
     domInteraction.displayGrid(aiBoard.getGrid(), aiGridDiv);
 
     domInteraction.addListeners(humanPlayer, aiGridDiv);
+    domInteraction.aiMove(aiPlayer, aiGridDiv);
   };
 
   return { play };

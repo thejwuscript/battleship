@@ -27,3 +27,11 @@ body {
 .coordinate.occupied {
   background-color: #5e5959;
 }
+
+.coordinate.attacked {
+  background-color: palegoldenrod;
+}
+
+.coordinate.occupied.attacked {
+  background-color: plum;
+}
