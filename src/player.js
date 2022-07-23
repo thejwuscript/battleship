@@ -1,7 +1,7 @@
-function Player(gameBoard) {
+function Player(enemyBoard) {
   return {
     attack(location) {
-      gameBoard.receiveAttack(location);
+      enemyBoard.receiveAttack(location);
     }
   }
 };

@@ -1,14 +1,13 @@
 import AIPlayer from "../src/aiPlayer";
 import GameBoard from "../src/gameBoard";
 import Player from "../src/player";
-import domInteraction from "./domInteraction";
+import DomHandler from "./domHandler";
 
 const Game = (() => {
   const humanBoard = GameBoard();
   const aiBoard = GameBoard();
   const humanPlayer = Player(aiBoard);
   const aiPlayer = AIPlayer(humanBoard);
-  let currentPlayer = humanPlayer;
 
   const randomNumber = (max) => Math.floor(Math.random() * max);
 
@@ -22,7 +21,7 @@ const Game = (() => {
   }
 
   const play = () => {
-    Object.values(humanBoard.getShips()).forEach((ship, index) => {
+    Object.values(humanBoard.getShips()).forEach(ship => {
       let location
       let orientation 
       while (true) {
@@ -32,10 +31,9 @@ const Game = (() => {
         if (location) break;
       }
       humanBoard.placeShip(ship, location, orientation);
-      //humanBoard.placeShip(ship, [index + 1, Math.floor(Math.random() * 5)], "horizontal");
     });
 
-    Object.values(aiBoard.getShips()).forEach((ship, index) => {
+    Object.values(aiBoard.getShips()).forEach(ship => {
       let location
       let orientation 
       while (true) {
@@ -44,21 +42,14 @@ const Game = (() => {
         location = aiBoard.validateLocation(randomArray, ship.getLength(), orientation)
         if (location) break;
       }
-       // while true
-       // orientation = randomOrientation()
-      // let randomArray = [randomNumber(9), randomNumber(9)]
-      // location = aiBoard.validateLocation(randomArray, ship.getLength(), orientation)
-      // if location is false then continue, else break
-
-      //aiBoard.placeShip(ship, [index + 1, Math.floor(Math.random() * 5)], "vertical");
       aiBoard.placeShip(ship, location, orientation);
     });
 
     const humanGridDiv = document.querySelector(".human-grid");
     const aiGridDiv = document.querySelector(".ai-grid");
    
-    domInteraction.displayGrid(humanBoard.getGrid(), humanGridDiv);
-    domInteraction.displayGrid(aiBoard.getGrid(), aiGridDiv);
+    DomHandler.displayGrid(humanBoard.getGrid(), humanGridDiv);
+    DomHandler.displayGrid(aiBoard.getGrid(), aiGridDiv);
     
     aiGridDiv.childNodes.forEach(coordinateDiv => {
       coordinateDiv.addEventListener('click', (e) => {
@@ -82,16 +73,7 @@ const Game = (() => {
           }
         }
       }, {once: true})
-    })
-
-    //domInteraction.addListeners(humanPlayer, aiGridDiv);
-    // domInteraction.aiMove(aiPlayer, aiGridDiv);
-    // domInteraction.hitOrMiss(aiBoard, aiGridDiv);
-    // aiGridDiv.childNodes.forEach(cellDiv => {
-    //   cellDiv.addEventListener('click', () => {
-    //     gameOver();
-    //   }, { once: true });
-    // });
+    });
   };
 
   return { play };

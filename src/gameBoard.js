@@ -41,7 +41,6 @@ function GameBoard() {
   const placeShip = (ship, location, orientation) => {
     const length = ship.getLength();
     let [rowIndex, colIndex] = location;
-    // let [rowIndex, colIndex] = validateLocation(location, length, orientation)
     if (orientation === 'horizontal') {
       for (let i = 0; i < length; i++) {
         grid[rowIndex][colIndex + i] = ship.getName() + i;
@@ -56,7 +55,6 @@ function GameBoard() {
   const receiveAttack = function(location) {
     const [rowIndex, colIndex] = location;
     if (this.getGrid()[rowIndex][colIndex] === null) {
-      console.log("Miss!");
       this.getMissedShots().push(location);
     } else if (typeof this.getGrid()[rowIndex][colIndex] === 'string') {
       let shipString = this.getGrid()[rowIndex][colIndex];
