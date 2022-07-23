@@ -69,7 +69,11 @@ const domInteraction = (() => {
     });
   }
 
-  return { displayGrid, addListeners, disableClicks, aiMove, hitOrMiss };
+  const changeDivClass = (div, className) => {
+    div.classList.add(className);
+  };
+
+  return { displayGrid, addListeners, disableClicks, aiMove, hitOrMiss, changeDivClass };
 })();
 
 export default domInteraction;

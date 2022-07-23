@@ -12,6 +12,8 @@ function AIPlayer(gameBoard) {
 
   const getLocations = () => locations;
 
+  const getLastAttackedLocation = () => attackedLocations[attackedLocations.length - 1];
+
   const chooseLocation = function () {
     shuffleLocations();
     const chosen = locations.pop();
@@ -32,7 +34,7 @@ function AIPlayer(gameBoard) {
     gameBoard.receiveAttack(chosenLocation);
   }
 
-  return { chooseLocation, getLocations, attack };
+  return { chooseLocation, getLocations, attack, getLastAttackedLocation };
 }
 
 export default AIPlayer;
