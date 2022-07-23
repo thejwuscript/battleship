@@ -16,11 +16,11 @@ const Game = (() => {
 
   const play = () => {
     Object.values(humanBoard.getShips()).forEach((ship, index) => {
-      humanBoard.placeShip(ship, [index, index], "horizontal");
+      humanBoard.placeShip(ship, [index + 1, Math.floor(Math.random() * 5)], "horizontal");
     });
 
     Object.values(aiBoard.getShips()).forEach((ship, index) => {
-      aiBoard.placeShip(ship, [index, index], "vertical");
+      aiBoard.placeShip(ship, [index + 1, Math.floor(Math.random() * 5)], "vertical");
     });
 
     const humanGridDiv = document.querySelector(".human-grid");
@@ -47,6 +47,7 @@ const Game = (() => {
           humanGridDiv.querySelector(`[data-location="${aiLocation[0]},${aiLocation[1]}"]`).classList.add("attacked");
           if (gameOver()) {
             setTimeout(() => alert("You lose!"), 0);
+            aiGridDiv.style.pointerEvents = "none";
           }
         }
       }, {once: true})
