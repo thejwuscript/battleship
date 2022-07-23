@@ -19,10 +19,29 @@ function GameBoard() {
 
   const getShips = () => ships;
 
+  const getShip = (shipName) => ships[shipName];
+
+  const validateLocation = (location, length, orientation) => {
+    const [row, col] = location;
+    for (let i = 0; i < length; i++) {
+      if (row + i >= 9 || col + i >= 9) return false;
+      if (orientation === 'horizontal') {
+        if (grid[row][col + i] !== null) {
+          return false;
+        }
+      } else {
+        if (grid[row + i][col] !== null) {
+          return false;
+        }
+      }
+    }
+    return location;
+  } 
+
   const placeShip = (ship, location, orientation) => {
-    //location is an array [row, column]
-    let [rowIndex, colIndex] = location;
     const length = ship.getLength();
+    let [rowIndex, colIndex] = location;
+    // let [rowIndex, colIndex] = validateLocation(location, length, orientation)
     if (orientation === 'horizontal') {
       for (let i = 0; i < length; i++) {
         grid[rowIndex][colIndex + i] = ship.getName() + i;
@@ -58,7 +77,7 @@ function GameBoard() {
     return true;
   };
 
-  return { getGrid, getShips, getMissedShots, placeShip, receiveAttack, allShipsSunk }
+  return { getGrid, getShips, getMissedShots, placeShip, receiveAttack, allShipsSunk, validateLocation }
 }
 
 export default GameBoard;

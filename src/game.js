@@ -10,17 +10,48 @@ const Game = (() => {
   const aiPlayer = AIPlayer(humanBoard);
   let currentPlayer = humanPlayer;
 
+  const randomNumber = (max) => Math.floor(Math.random() * max);
+
+  const randomOrientation = () => {
+    const orientations = ["horizontal", "vertical"];
+    return orientations[randomNumber(2)];
+  }
+  
   const gameOver = () => {
     return (humanBoard.allShipsSunk() || aiBoard.allShipsSunk())
   }
 
   const play = () => {
     Object.values(humanBoard.getShips()).forEach((ship, index) => {
-      humanBoard.placeShip(ship, [index + 1, Math.floor(Math.random() * 5)], "horizontal");
+      let location
+      let orientation 
+      while (true) {
+        orientation = randomOrientation();
+        let randomArray = [randomNumber(9), randomNumber(9)];
+        location = humanBoard.validateLocation(randomArray, ship.getLength(), orientation)
+        if (location) break;
+      }
+      humanBoard.placeShip(ship, location, orientation);
+      //humanBoard.placeShip(ship, [index + 1, Math.floor(Math.random() * 5)], "horizontal");
     });
 
     Object.values(aiBoard.getShips()).forEach((ship, index) => {
-      aiBoard.placeShip(ship, [index + 1, Math.floor(Math.random() * 5)], "vertical");
+      let location
+      let orientation 
+      while (true) {
+        orientation = randomOrientation();
+        let randomArray = [randomNumber(9), randomNumber(9)];
+        location = aiBoard.validateLocation(randomArray, ship.getLength(), orientation)
+        if (location) break;
+      }
+       // while true
+       // orientation = randomOrientation()
+      // let randomArray = [randomNumber(9), randomNumber(9)]
+      // location = aiBoard.validateLocation(randomArray, ship.getLength(), orientation)
+      // if location is false then continue, else break
+
+      //aiBoard.placeShip(ship, [index + 1, Math.floor(Math.random() * 5)], "vertical");
+      aiBoard.placeShip(ship, location, orientation);
     });
 
     const humanGridDiv = document.querySelector(".human-grid");
