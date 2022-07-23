@@ -40,12 +40,13 @@ const Game = (() => {
         }
         if (gameOver()) {
           setTimeout(() => alert("You win!"), 0);
+          aiGridDiv.style.pointerEvents = "none";
         } else {
           aiPlayer.attack();
           const aiLocation = aiPlayer.getLastAttackedLocation()
           humanGridDiv.querySelector(`[data-location="${aiLocation[0]},${aiLocation[1]}"]`).classList.add("attacked");
           if (gameOver()) {
-            alert("You lose!");
+            setTimeout(() => alert("You lose!"), 0);
           }
         }
       }, {once: true})
@@ -60,8 +61,6 @@ const Game = (() => {
     //   }, { once: true });
     // });
   };
-
- 
 
   return { play };
 })();
