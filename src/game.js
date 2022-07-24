@@ -9,9 +9,6 @@ const Game = (() => {
   const humanPlayer = Player(aiBoard);
   const aiPlayer = AIPlayer(humanBoard);
 
-  const humanGridDiv = document.querySelector(".human-grid");
-  const aiGridDiv = document.querySelector(".ai-grid");
-
   const gameOver = () => {
     return humanBoard.allShipsSunk() || aiBoard.allShipsSunk();
   };
@@ -31,8 +28,8 @@ const Game = (() => {
   const play = () => {
     humanBoard.placeShips();
     aiBoard.placeShips();
-    DomHandler.render(humanBoard.getGrid(), humanGridDiv);
-    DomHandler.render(aiBoard.getGrid(), aiGridDiv);
+    DomHandler.render(humanBoard.getGrid(), 'visible');
+    DomHandler.render(aiBoard.getGrid());
     DomHandler.addListenersToCoordinates(gameLoop);
   };
 
