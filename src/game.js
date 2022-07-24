@@ -16,38 +16,24 @@ const Game = (() => {
     return humanBoard.allShipsSunk() || aiBoard.allShipsSunk();
   };
 
-  const oneLoop = (e) => {
+  const gameLoop = (e) => {
     const location = e.target.dataset.location.split(",");
     humanPlayer.attack(location);
-    if (aiBoard.getGrid()[location[0]][location[1]] === null) {
-      e.target.classList.add("empty", "attacked");
-    } else if (
-      typeof aiBoard.getGrid()[location[0]][location[1]] === "string"
-    ) {
-      e.target.classList.add("occupied", "attacked");
-    }
-    if (gameOver()) {
-      setTimeout(() => alert("You win!"), 0);
-      aiGridDiv.style.pointerEvents = "none";
-    } else {
-      aiPlayer.attack();
-      const aiLocation = aiPlayer.getLastAttackedLocation();
-      humanGridDiv
-        .querySelector(`[data-location="${aiLocation[0]},${aiLocation[1]}"]`)
-        .classList.add("attacked");
-      if (gameOver()) {
-        setTimeout(() => alert("You lose!"), 0);
-        aiGridDiv.style.pointerEvents = "none";
-      }
-    }
+    DomHandler.updateAIGrid(aiBoard, location, e.target);
+    if (gameOver()) return DomHandler.announceWinner('You win!');
+
+    aiPlayer.attack();
+    const aiSelection = aiPlayer.getLastAttackedLocation();
+    DomHandler.updateHumanGrid(aiSelection)
+    if (gameOver()) return DomHandler.announceWinner('You lose!');
   };
 
-  const play = function() {
+  const play = () => {
     humanBoard.placeShips();
     aiBoard.placeShips();
     DomHandler.render(humanBoard.getGrid(), humanGridDiv);
     DomHandler.render(aiBoard.getGrid(), aiGridDiv);
-    DomHandler.addGameLoopListeners(aiGridDiv, oneLoop);
+    DomHandler.addListenersToCoordinates(gameLoop);
   };
 
   return { play };
