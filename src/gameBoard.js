@@ -75,7 +75,7 @@ function GameBoard() {
     }
   };
 
-  const receiveAttack = function (location) {
+  const receiveAttack = function (location, player) {
     const [rowIndex, colIndex] = location;
     if (this.getGrid()[rowIndex][colIndex] === null) {
       this.getMissedShots().push(location);
@@ -84,6 +84,9 @@ function GameBoard() {
       let shipName = shipString.split(/(\d+)/)[0];
       let shipIndex = parseInt(shipString.split(/(\d+)/)[1]);
       ships[shipName].hit(shipIndex);
+      if (ships[shipName].isSunk()) {
+        console.log(`${player} ${shipName} is down!`);
+      }
     }
   };
 

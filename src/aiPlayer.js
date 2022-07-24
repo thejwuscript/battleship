@@ -1,5 +1,5 @@
-function AIPlayer(gameBoard) {
-  const locations = gameBoard
+function AIPlayer(enemyBoard) {
+  const locations = enemyBoard
     .getGrid()
     .map((row, rowIndex) => {
       return row.map((cell, columnIndex) => {
@@ -31,7 +31,7 @@ function AIPlayer(gameBoard) {
 
   const attack = () => {
     const chosenLocation = chooseLocation();
-    gameBoard.receiveAttack(chosenLocation);
+    enemyBoard.receiveAttack(chosenLocation, 'Your');
   }
 
   return { chooseLocation, getLocations, attack, getLastAttackedLocation };
